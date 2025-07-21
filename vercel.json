@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "src/app/api/send_mail/route.js": {
+      "schedule": "*/10 * * * *"
+    }
+  }
+}
