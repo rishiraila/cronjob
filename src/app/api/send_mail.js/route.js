@@ -1,6 +1,8 @@
+// src/app/api/send_mail/route.js
+
 import nodemailer from "nodemailer";
 
-export default async function handler(req, res) {
+export async function GET(req) {
   try {
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -12,15 +14,15 @@ export default async function handler(req, res) {
 
     await transporter.sendMail({
       from: `"Cron Mailer" <${process.env.EMAIL_USER}>`,
-      to: "rishikesh@coinage.in", // Change to your recipient
+      to: "rishikesh@coinage.in",
       subject: "Scheduled Email",
       text: "This email is sent every 10 minutes via Vercel cron job.",
     });
 
     console.log("Email sent");
-    res.status(200).json({ message: "Email sent" });
+    return Response.json({ message: "Email sent" });
   } catch (error) {
     console.error("Email error:", error);
-    res.status(500).json({ error: "Failed to send email" });
+    return Response.json({ error: "Failed to send email" }, { status: 500 });
   }
 }
